@@ -37,4 +37,28 @@ const createBookTableRow = (book) => {
   return bookRow;
 };
 
+const addBookBtn = document.querySelector('#addBook');
+const booksEl = document.querySelector('#books');
+
 const books = new Library();
+
+books.addBook(new Book('First Book', 'Me', 12));
+books.addBook(new Book('Second Book', 'Me', 23));
+
+books.books.forEach(book => {
+  const bookEl = createBookTableRow(book);
+  booksEl.append(bookEl);
+});
+
+addBookBtn.addEventListener('click', e => {
+  e.preventDefault();
+  
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
+  const pages = document.querySelector('#pages').value;
+
+  const newBook = new Book(title, author, pages);
+  books.addBook(newBook);
+  const newBookRow = createBookTableRow(newBook);
+  booksEl.appendChild(newBookRow);
+});
